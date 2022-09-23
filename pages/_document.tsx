@@ -18,11 +18,7 @@ class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang="en">
-        <Head>
-          <title>Next Puga Default</title>
-
-          <link rel="icon" href="..//favicon.ico" />
-        </Head>
+        <Head/>
         <body>
           <Main />
           <NextScript />
