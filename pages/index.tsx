@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
 import Header from "../components/Header";
+import Banner from "../components/Banner";
+import request from "../utils/request";
 
 const Home: NextPage = (): JSX.Element => {
   return (
@@ -11,8 +13,9 @@ const Home: NextPage = (): JSX.Element => {
 
         <link rel="icon" href="..//favicon.ico" />
       </Head>
-      <Header/>
+      <Header />
       <main>
+        <Banner />
         <section className=""></section>
       </main>
     </div>
@@ -20,3 +23,38 @@ const Home: NextPage = (): JSX.Element => {
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const [
+    netflixOriginal,
+    tranding,
+    topRated,
+    actionMovies,
+    comedyMovies,
+    horrorMovies,
+    romanceMovies,
+    documentaries,
+  ] = await Promise.all([
+    fetch(request.fetchNetflixOriginal).then((res) => res.json()),
+    fetch(request.fetchTranding).then((res) => res.json()),
+    fetch(request.fetchTopRated).then((res) => res.json()),
+    fetch(request.fetchActionMovies).then((res) => res.json()),
+    fetch(request.fetchComedyMovies).then((res) => res.json()),
+    fetch(request.fetchHorrorMovies).then((res) => res.json()),
+    fetch(request.fetchRomanceMovies).then((res) => res.json()),
+    fetch(request.fetchDocumentaries).then((res) => res.json()),
+  ]);
+
+  return {
+    props: {
+      netflixOriginal: netflixOriginal.results,
+      tranding: tranding.results,
+      topRated:topRated.results,
+      actionMovies: actionMovies.results,
+      comedyMovies:comedyMovies.results,
+      horrorMovies:horrorMovies.results,
+      romanceMovies:romanceMovies.results,
+      documentaries:documentaries.results,
+    },
+  };
+};
