@@ -11,10 +11,14 @@
 
 @layer base{
     body{
-        @apply  font-netflix bg-[#141414] text-white
+        @apply  font-netflix  text-white font-light bg-[#141414]
+    }
+    header{
+        @apply fixed top-0 z-50 flex w-full items-center 
+        lg:px-10 lg:py-6 justify-between p-4 transition-all duration-300
     }
     .headerLink{
-        @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition-all duration-300
+        @apply cursor-pointer text-sm  text-[#e5e5e5] transition-all duration-300
         hover:text-[#b3b3b3]
     }
 }

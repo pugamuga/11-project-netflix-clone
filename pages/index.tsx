@@ -5,7 +5,7 @@ import Header from "../components/Header";
 
 const Home: NextPage = (): JSX.Element => {
   return (
-    <div className="h-screen w-full">
+    <div className=" relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511]">
       <Head>
         <title>Pugaflix-home</title>
 
@@ -13,7 +13,7 @@ const Home: NextPage = (): JSX.Element => {
       </Head>
       <Header/>
       <main>
-        <section></section>
+        <section className=""></section>
       </main>
     </div>
   );
