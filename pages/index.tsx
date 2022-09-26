@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
-import Header from "../src/components/Header";
+import Header from "../components/Header";
 
 const Home: NextPage = (): JSX.Element => {
   return (
@@ -11,7 +11,7 @@ const Home: NextPage = (): JSX.Element => {
 
         <link rel="icon" href="..//favicon.ico" />
       </Head>
-      <Header />
+      <Header/>
       <main>
         <section></section>
       </main>

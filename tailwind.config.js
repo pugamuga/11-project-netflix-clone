@@ -11,6 +11,7 @@ module.exports = {
       nablaPixel: ["Nabla", "cursive"],
       strongItalik: ["Ms Madi", "cursive"],
       lobster: ["Lobster", "cursive"],
+      netflix: ["Bebas Neue", "cursive"],
     },
   },
   plugins: [],
