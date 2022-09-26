@@ -34,14 +34,14 @@ export default function Header(): JSX.Element {
         </ul>
       </div>
       <div className=" flex items-center space-x-4 text-sm ">
-        <SearchIcon className="w-6 h-6 hidden sm:inline" />
+        <SearchIcon className="w-6 h-6 cursor-pointer hidden sm:inline fill-[#e5e5e5] hover:fill-[#b3b3b3] tr" />
         <p className="hidden lg:inline">Kids</p>
-        <BellIcon className="w-6 h-6" />
+        <BellIcon className="w-6 h-6 cursor-pointer fill-[#e5e5e5] hover:fill-[#b3b3b3] tr " />
         <Link href="/account">
           <img
             src="https://rb.gy/g1pwyx"
             alt=""
-            className=" cursor-pointer rounded"
+            className=" cursor-pointer rounded hover:opacity-90 tr"
           />
         </Link>
       </div>

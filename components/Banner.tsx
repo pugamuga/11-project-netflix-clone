@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { PugaMovie } from "../typing";
 
-export default function Banner(): JSX.Element {
+
+interface IProps {
+  netflixOriginal: PugaMovie[];
+}
+
+export default function Banner({ netflixOriginal }: IProps): JSX.Element {
   return (
     <div>
       {/* <div>

@@ -21,6 +21,9 @@
         @apply cursor-pointer text-sm  text-[#e5e5e5] transition-all duration-300
         hover:text-[#b3b3b3]
     }
+    .tr{
+        @apply transition-all duration-300
+    }
 }
 
   
