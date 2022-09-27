@@ -31,10 +31,10 @@ export default function Banner({ netflixOriginal }: IProps): JSX.Element {
         {movie?.overview}
       </p>
       <div className="flex space-x-3">
-        <button className="bannerBtn cursor-fancyPointer">
+        <button className="bannerBtn cursor-pointer">
           <FaPlay className="mb-[2px] h-4 w-4 text-black md:h-7 md:w-7 " /> Play
         </button>
-        <button className="bannerBtnGhost cursor-fancyPointer">
+        <button className="bannerBtnGhost cursor-pointer">
           More Info
           <InformationCircleIcon className=" w-4 h-4 md:h-8 md:w-8" />
         </button>

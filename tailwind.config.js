@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       cursor: {
         fancy: 'url("../public/assets/h3cursor.png"), auto',
-        fancyPointer: 'url("../public/assets/h3cursorPointer.png"), auto',
+        // fancyPointer: 'url("../public/assets/h3cursorPointer.png"), auto',
       },
       backgroundImage: {
         'gradient-to-b':

@@ -25,7 +25,7 @@ export default function Row({ title, movies }: IProps): JSX.Element {
 
   return (
     <div className="h-40 space-y-[2px] md:space-y-2 ">
-      <h1 className=" w-56 cursor-fancyPointer text-sm text-[#e5e5e5] tr hover:text-white md:text-2xl">
+      <h1 className=" w-56 cursor-pointer text-sm text-[#e5e5e5] tr hover:text-white md:text-2xl">
         {title}
       </h1>
       <div className=" group relative md:-ml-2 ">
@@ -33,7 +33,7 @@ export default function Row({ title, movies }: IProps): JSX.Element {
         onClick={() => {
          handleClick("left")   
         }}
-          className={`w-8 h-8 absolute top-0 bottom-0 left-2 z-40 m-auto cursor-fancyPointer 
+          className={`w-8 h-8 absolute top-0 bottom-0 left-2 z-40 m-auto cursor-pointer 
         tr hover:scale-125  opacity-0 group-hover:opacity-100 ${!isMoved&&"hidden"}`}
         />
         <div ref={RowRef} className=" flex items-center space-x-[4px] overflow-x-scroll
@@ -46,7 +46,7 @@ export default function Row({ title, movies }: IProps): JSX.Element {
         onClick={() => {
          handleClick("right")   
         }}
-          className="w-8 h-8 absolute top-0 bottom-0 right-2 z-40 m-auto cursor-fancyPointer 
+          className="w-8 h-8 absolute top-0 bottom-0 right-2 z-40 m-auto cursor-pointer 
         tr hover:scale-125 opacity-0 group-hover:opacity-100"
         />
       </div>

@@ -33,15 +33,15 @@ export default function Header(): JSX.Element {
           <li className="headerLink">My List</li>
         </ul>
       </div>
-      <div className=" flex items-center space-x-4 text-sm cursor-fancyPointer">
-        <SearchIcon className="w-6 h-6 cursor-fancyPointer hidden sm:inline fill-[#e5e5e5] hover:fill-[#b3b3b3] tr" />
-        <p className="hidden lg:inline cursor-fancyPointer hover:text-slate-300 tr">Kids</p>
-        <BellIcon className="w-6 h-6 cursor-fancyPointer fill-[#e5e5e5] hover:fill-[#b3b3b3] tr " />
-        <Link href="/account" className="!cursor-fancyPointer">
+      <div className=" flex items-center space-x-4 text-sm cursor-pointer">
+        <SearchIcon className="w-6 h-6 cursor-pointer hidden sm:inline fill-[#e5e5e5] hover:fill-[#b3b3b3] tr" />
+        <p className="hidden lg:inline cursor-pointer hover:text-slate-300 tr">Kids</p>
+        <BellIcon className="w-6 h-6 cursor-pointer fill-[#e5e5e5] hover:fill-[#b3b3b3] tr " />
+        <Link href="/account" className="!cursor-pointer">
           <img
             src="https://rb.gy/g1pwyx"
             alt=""
-            className=" !cursor-fancyPointer rounded hover:opacity-90 tr"
+            className=" !cursor-pointer rounded hover:opacity-90 tr"
           />
         </Link>
       </div>
