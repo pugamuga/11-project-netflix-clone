@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Banner from "../components/Banner";
 import request from "../utils/request";
 import { PugaMovie, Genre } from "../typing";
+import Row from "../components/Row";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -35,9 +36,18 @@ const Home = ({
         <link rel="icon" href="..//favicon.ico" />
       </Head>
       <Header />
-      <main>
+      <main className=" relative pl-4 pb-24 lg:space-y-24 lg:pl-16 tr">
         <Banner netflixOriginal={netflixOriginal}/>
-        <section className=""></section>
+        <section className=" md:space-y-[60px]">
+          <Row title="Trending Now" movies={tranding} />
+          <Row title="Top Rated" movies={topRated} />
+          <Row title="Action Thrillers" movies={actionMovies} />
+          {/*my list*/}
+          <Row title="Comedies" movies={comedyMovies} />
+          <Row title="Horrors" movies={horrorMovies} />
+          <Row title="Romance movies" movies={romanceMovies} />
+          <Row title="Documentaries" movies={documentaries} />
+        </section>
       </main>
     </div>
   );

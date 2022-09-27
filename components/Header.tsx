@@ -23,7 +23,7 @@ export default function Header(): JSX.Element {
 
   return (
     <header className={`${isScrolled && "bg-[#141414]"}`}>
-      <div className=" flex items-center space-x-2 md:space-x-10">
+      <div className=" flex items-center space-x-2 md:space-x-10 lg:origin-top-left lg:scale-150 tr">
         <NetflixIcon />
         <ul className=" space-x-4 hidden md:flex">
           <li className="headerLink">Home</li>

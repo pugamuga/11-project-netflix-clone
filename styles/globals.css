@@ -11,7 +11,8 @@
 
 @layer base{
     body{
-        @apply  font-netflix  text-white font-light bg-[#141414]
+        @apply  font-netflix  text-white font-light bg-[#141414] !scrollbar-track-transparent
+        !scrollbar-thumb-red-600 !scrollbar-thin !scrollbar-thumb-rounded-sm
     }
     header{
         @apply fixed top-0 z-50 flex w-full items-center 
@@ -25,7 +26,10 @@
         @apply transition-all duration-300
     }
     .bannerBtn{
-        @apply 
+        @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-black bg-white
+    }
+    .bannerBtnGhost{
+        @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-white bg-white/20
     }
 }
 
