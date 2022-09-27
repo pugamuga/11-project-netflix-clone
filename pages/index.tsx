@@ -31,7 +31,7 @@ const Home = ({
   return (
     <div className=" relative h-screen bg-gradient-to-b">
       <Head>
-        <title>Pugaflix-home</title>
+        <title>Pugaflix</title>
 
         <link rel="icon" href="..//favicon.ico" />
       </Head>

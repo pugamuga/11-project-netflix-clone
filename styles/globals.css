@@ -30,6 +30,9 @@
   .bannerBtnGhost {
     @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-white bg-white/20;
   }
+  .input{
+    @apply pb-3 pt-4 px-4 rounded-sm w-full bg-[#333] outline-none focus:bg-white/30
+  } 
 }
 
 /* *{
