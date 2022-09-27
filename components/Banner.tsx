@@ -2,8 +2,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { baseUrl } from "../constants/movie";
 import { PugaMovie } from "../typing";
-import {FaPlay,} from "react-icons/fa"
-import {InformationCircleIcon} from "@heroicons/react/outline"
+import { FaPlay } from "react-icons/fa";
+import { InformationCircleIcon } from "@heroicons/react/outline";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -19,21 +19,26 @@ export default function Banner({ netflixOriginal }: IProps): JSX.Element {
 
   return (
     <div className=" flex flex-col space-y-2 md:space-y-4 py-16 lg:h-[65vh] lg:justify-end lg:pb-12 tr ">
-      <div className=" absolute top-0 left-0 h-[95vh] -z-10 w-screen origin-top">
+      <div className=" absolute top-0 left-0 h-[95vh]   -z-10 w-screen">
         <Image
-          src={`${baseUrl}${ movie?.poster_path}`}
+          src={`${baseUrl}${movie?.poster_path}`}
           layout="fill"
-          objectFit="cover"
+          className=" object-cover lg:object-center "
         />
       </div>
       <h1 className=" text-2xl lg:text-7xl md:text-4xl">{movie?.title}</h1>
-      <p className=" max-w-xs text-xs md:text-xl md:max-w-lg text-shadow-xl lg:max-w-2xl lg:text-2xl ">{movie?.overview}</p>
-    <div className="flex space-x-3">
-      <button className="bannerBtn">
-        <FaPlay className="mb-[2px] h-4 w-4 text-black md:h-7 md:w-7"/> Play</button>
-      <button className="bannerBtnGhost">More Info<InformationCircleIcon className=" w-4 h-4 md:h-8 md:w-8"/></button>
-    </div>
-    
+      <p className=" max-w-xs text-xs md:text-xl md:max-w-lg text-shadow-xl lg:max-w-2xl lg:text-2xl ">
+        {movie?.overview}
+      </p>
+      <div className="flex space-x-3">
+        <button className="bannerBtn cursor-fancyPointer">
+          <FaPlay className="mb-[2px] h-4 w-4 text-black md:h-7 md:w-7 " /> Play
+        </button>
+        <button className="bannerBtnGhost cursor-fancyPointer">
+          More Info
+          <InformationCircleIcon className=" w-4 h-4 md:h-8 md:w-8" />
+        </button>
+      </div>
     </div>
   );
 }

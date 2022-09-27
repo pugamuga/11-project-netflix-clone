@@ -1,36 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nabla&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nabla&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-    body{
-        @apply  font-netflix  text-white font-light bg-[#141414] !scrollbar-track-transparent
-        !scrollbar-thumb-red-600 !scrollbar-thin !scrollbar-thumb-rounded-sm
-    }
-    header{
-        @apply fixed top-0 z-50 flex w-full items-center 
-        lg:px-10 lg:py-6 justify-between p-4 transition-all duration-300
-    }
-    .headerLink{
-        @apply cursor-pointer text-sm  text-[#e5e5e5] transition-all duration-300
-        hover:text-[#b3b3b3]
-    }
-    .tr{
-        @apply transition-all duration-300
-    }
-    .bannerBtn{
-        @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-black bg-white
-    }
-    .bannerBtnGhost{
-        @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-white bg-white/20
-    }
+@layer base {
+  body {
+    @apply cursor-fancy font-netflix  text-white font-light bg-[#141414] !scrollbar-track-transparent
+        !scrollbar-thumb-red-600 !scrollbar-thin !scrollbar-thumb-rounded-sm;
+  }
+  header {
+    @apply fixed top-0 z-50 flex w-full items-center 
+        lg:px-10 lg:py-6 justify-between p-4 transition-all duration-300;
+  }
+  .headerLink {
+    @apply cursor-fancyPointer text-sm  text-[#e5e5e5] transition-all duration-300
+        hover:text-[#b3b3b3];
+  }
+  .tr {
+    @apply transition-all duration-300;
+  }
+  .bannerBtn {
+    @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-black bg-white;
+  }
+  .bannerBtnGhost {
+    @apply flex items-center gap-x-2 rounded px-5 py-[6px] text-sm md:text-lg tr hover:opacity-75 text-white bg-white/20;
+  }
 }
 
-  
+/* *{
+    cursor: url("../public/assets/h3cursorPointer.png"), auto;
+    
+    
+} */

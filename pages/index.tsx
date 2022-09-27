@@ -29,16 +29,16 @@ const Home = ({
   documentaries,
 }: IProps): JSX.Element => {
   return (
-    <div className=" relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511]">
+    <div className=" relative h-screen bg-gradient-to-b">
       <Head>
         <title>Pugaflix-home</title>
 
         <link rel="icon" href="..//favicon.ico" />
       </Head>
       <Header />
-      <main className=" relative pl-4 pb-24 lg:space-y-24 lg:pl-16 tr">
-        <Banner netflixOriginal={netflixOriginal}/>
-        <section className=" md:space-y-[60px]">
+      <main className=" relative pl-4 pb-24 space-y-12 pt-12 lg:pt-0 md:space-y-24 lg:pl-16 tr">
+        <Banner netflixOriginal={netflixOriginal} />
+        <section className=" md:space-y-24">
           <Row title="Trending Now" movies={tranding} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
