@@ -18,7 +18,7 @@
         lg:px-10 lg:py-6 justify-between p-4 transition-all duration-300;
   }
   .headerLink {
-    @apply cursor-fancyPointer text-sm  text-[#e5e5e5] transition-all duration-300
+    @apply cursor-pointer text-sm  text-[#e5e5e5] transition-all duration-300
         hover:text-[#b3b3b3];
   }
   .tr {
