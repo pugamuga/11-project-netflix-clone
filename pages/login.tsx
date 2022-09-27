@@ -26,10 +26,13 @@ export default function login() {
         <NetflixIcon />
       </div>
       <form
+      onClick={(e) => {
+        e.preventDefault()
+      }}
         className=" relative mt-24 space-y-8 rounded bg-black/75 py-10 px-12 md:mt-0
       md:w-[420px] md:px-14"
       >
-        <h1 className=" text-center text-3xl">Sign In</h1>
+        <h1 className=" text-3xl">Sign In</h1>
         <div className=" space-y-4 flex flex-col">
           <label>
             <input type="email" placeholder="Email" className=" input " />
@@ -52,11 +55,11 @@ export default function login() {
             }} className="w-5 h-5 absolute top-0 bottom-0 my-auto right-5" />}
           </label>
         </div>
-        <button className=" w-full text-center rounded-sm bg-[#e50913] text-lg pb-2 pt-3">
+        <button type="submit" className=" w-full text-center rounded-sm bg-[#e50913] text-lg pb-2 pt-3">
           Sign In
         </button>
         <div className=" flex space-x-2">
-          <h1>New to Netflix?</h1>
+          <h1 className=" text-white/40">New to Netflix?</h1>
           <button className="hover:underline">Sign Up Now</button>
         </div>
       </form>
