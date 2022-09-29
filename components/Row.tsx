@@ -21,7 +21,7 @@ export default function Row({ title, movies }: IProps): JSX.Element {
         }
     }
 
-    console.log(RowRef.current?.scrollLeft)
+  
 
   return (
     <div className="h-40 space-y-[2px] md:space-y-2 ">

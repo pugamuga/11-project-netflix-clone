@@ -48,3 +48,8 @@ export interface Genre {
       | 'Trailer'
       | 'Teaser'
   }
+
+  export interface Inputs {
+    email: string,
+    password: string,
+  };
