@@ -5,17 +5,20 @@ import NetflixIcon from "../components/svg/NetflixIcon";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 import { useForm, SubmitHandler  } from "react-hook-form";
 import { Inputs } from "../typing";
+import useAuth from "../hooks/useAuth";
 
 export default function login() {
 const [login, setLogin] = useState<boolean>(false);
 
   const [passIsView, setPassIsView] = useState<boolean>(false);
   const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+const {signIn, signUp} = useAuth()
+
   const onSubmit: SubmitHandler<Inputs> = async({email,password}) => {
     if(login){
-        // await signIn(email, password)
+        await signIn(email, password)
     } else{
-      // await signUp(email, password)
+      await signUp(email, password)
     }
   }
 
