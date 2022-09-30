@@ -7,6 +7,7 @@ import request from "../utils/request";
 import { PugaMovie, Genre } from "../typing";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
+import { useRecoilValue } from "recoil";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -30,6 +31,7 @@ const Home = ({
   documentaries,
 }: IProps): JSX.Element|null => {
   const { logout, loading } = useAuth();
+  const showModal = useRecoilValue()
 
   if (loading) return null
 
