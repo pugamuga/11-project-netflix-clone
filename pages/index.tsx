@@ -8,6 +8,8 @@ import { PugaMovie, Genre } from "../typing";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
 import { useRecoilValue } from "recoil";
+import {modalState} from "../atoms/modalAtom"
+import Modal from "../components/Modal";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -31,7 +33,7 @@ const Home = ({
   documentaries,
 }: IProps): JSX.Element|null => {
   const { logout, loading } = useAuth();
-  const showModal = useRecoilValue()
+  const showModal = useRecoilValue(modalState)
 
   if (loading) return null
 
@@ -56,6 +58,7 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
         </section>
       </main>
+      {showModal&&<Modal/>}
     </div>
   );
 };
