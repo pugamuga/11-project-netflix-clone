@@ -15,7 +15,6 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { async } from "@firebase/util";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -78,7 +77,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signIn = async (email: string, password: string) => {
     setLoading(true);
 
-    await createUserWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
         router.push("/");
@@ -108,11 +107,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       user,
       signUp,
       signIn,
+      error,
       loading,
       logout,
-      error,
+     
     }),
-    [user, loading]
+    [user, loading,error]
   );
 
   return <AuthContext.Provider value={memoValue}>{initialLoading&& children}</AuthContext.Provider>;

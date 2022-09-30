@@ -6,6 +6,7 @@ import Banner from "../components/Banner";
 import request from "../utils/request";
 import { PugaMovie, Genre } from "../typing";
 import Row from "../components/Row";
+import useAuth from "../hooks/useAuth";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -27,7 +28,11 @@ const Home = ({
   horrorMovies,
   romanceMovies,
   documentaries,
-}: IProps): JSX.Element => {
+}: IProps): JSX.Element|null => {
+  const { logout, loading } = useAuth();
+
+  if (loading) return null
+
   return (
     <div className=" relative h-screen bg-gradient-to-b">
       <Head>
