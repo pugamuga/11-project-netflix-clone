@@ -101,6 +101,36 @@ export default function Modal(): JSX.Element {
             </button>
           </div>
         </div>
+        <div className=" flex space-x-16 rounded-b-md bg-[#181818] px-10 py-8">
+          <div className=" space-y-6 text-md lg:text-lg">
+            <div className=" flex items-center space-x-2">
+              <p className=" text-green-400">
+                {(movie!.vote_average * 10).toFixed(2)}% Match
+              </p>
+              <p>{movie?.release_date}</p>
+              <div className=" flex h-5 items-center justify-center rounded border border-white/40 px-2 -mt-1">
+                <p className=" pt-1">HD</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-x-10 md:flex-row">
+              <p className=" w-5/6">{movie?.overview}</p>
+              <div className=" flex flex-col space-y-3 mt-4 md:mt-0">
+                <div className=" text-white flex gap-x-2 md:flex-col">
+                  <span className=" text-[#424242]">Genres: </span>
+                  <p>{genres.map((genre) => genre.name).join(", ")}</p>
+                </div>
+                <div className=" text-white flex gap-x-2 md:flex-col">
+                  <span className=" text-[#424242]">Original language: </span>
+                  <p>{movie?.original_language}</p>
+                </div>
+                <div className=" text-white  flex gap-x-2 md:flex-col">
+                  <span className=" text-[#424242]">Total votes: </span>
+                  <p>{movie?.vote_count}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     </MuiModal>
   );
