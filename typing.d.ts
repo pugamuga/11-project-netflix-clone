@@ -39,7 +39,7 @@ export interface Genre {
     vote_count:number
   }
   
-  export interface Element {
+  export interface ElementTyping {
     type:
       | 'Bloopers'
       | 'Featurette'
