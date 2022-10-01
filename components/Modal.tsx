@@ -105,7 +105,7 @@ export default function Modal(): JSX.Element {
           <div className=" space-y-6 text-md lg:text-lg">
             <div className=" flex items-center space-x-2">
               <p className=" text-green-400">
-                {(movie!.vote_average * 10).toFixed(2)}% Match
+                {(movie!.vote_average * 10).toFixed(2)}% Match 
               </p>
               <p>{movie?.release_date}</p>
               <div className=" flex h-5 items-center justify-center rounded border border-white/40 px-2 -mt-1">
