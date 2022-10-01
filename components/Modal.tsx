@@ -1,4 +1,10 @@
-import { XIcon } from "@heroicons/react/outline";
+import {
+  PlusIcon,
+  ThumbUpIcon,
+  VolumeOffIcon,
+  VolumeUpIcon,
+  XIcon,
+} from "@heroicons/react/outline";
 import MuiModal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
@@ -13,7 +19,7 @@ export default function Modal(): JSX.Element {
   const [movie, setMovie] = useRecoilState(movieState);
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
 
   useEffect(() => {
     if (!movie) return;
@@ -46,8 +52,12 @@ export default function Modal(): JSX.Element {
     setShowModal(false);
   };
   return (
-    <MuiModal open={showModal} onClose={handleClose} className="fixed top-8 right-0 left-0 mx-auto z-50 w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-lg
-    scrollbar-hide">
+    <MuiModal
+      open={showModal}
+      onClose={handleClose}
+      className="fixed top-8 right-0 left-0 mx-auto z-50 w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-lg
+    scrollbar-hide"
+    >
       <>
         <button
           onClick={handleClose}
@@ -64,13 +74,31 @@ export default function Modal(): JSX.Element {
             playing
             muted={muted}
           />
-          <div>
-            <div>
-              <button className=" flex items-center gap-x-2 rounded">
+          <div className=" absolute bottom-10 flex w-full items-center justify-between px-10">
+            <div className="flex space-x-4">
+              <button className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]">
                 <FaPlay className=" w-6 h-6 text-black" />
                 Play
               </button>
+              <button className=" modalBtn">
+                <PlusIcon className="w-6 h-6" />
+              </button>
+              <button className=" modalBtn">
+                <ThumbUpIcon className="w-6 h-6" />
+              </button>
             </div>
+            <button
+              className="modalBtn"
+              onClick={() => {
+                setMuted((prev) => !prev);
+              }}
+            >
+              {muted ? (
+                <VolumeOffIcon className="w-6 h-6" />
+              ) : (
+                <VolumeUpIcon className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </>
