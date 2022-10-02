@@ -8,8 +8,9 @@ import { PugaMovie, Genre } from "../typing";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
 import { useRecoilValue } from "recoil";
-import {modalState} from "../atoms/modalAtom"
+import { modalState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
+import Plans from "../components/Plans";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -31,11 +32,13 @@ const Home = ({
   horrorMovies,
   romanceMovies,
   documentaries,
-}: IProps): JSX.Element|null => {
+}: IProps): JSX.Element | null => {
   const { logout, loading } = useAuth();
-  const showModal = useRecoilValue(modalState)
+  const showModal = useRecoilValue(modalState);
+  const subscription: boolean = false;
 
-  if (loading) return null
+  if (loading || subscription) return null;
+  if (!subscription) return <Plans/>
 
   return (
     <div className=" relative h-screen bg-gradient-to-b">
@@ -58,7 +61,7 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
         </section>
       </main>
-      {showModal&&<Modal/>}
+      {showModal && <Modal />}
     </div>
   );
 };
