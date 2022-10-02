@@ -11,6 +11,8 @@ import { useRecoilValue } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
 import Plans from "../components/Plans";
+import {getProducts} from "@stripe/firestore-stripe-payments"
+import payments from "../lib/stripe";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -69,6 +71,12 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps = async () => {
+  const products = await getProducts(payments, {
+    includePrices:true,
+    activeOnly:true
+  })
+
+
   const [
     netflixOriginal,
     tranding,
