@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
 import Plans from "../components/Plans";
-import {getProducts} from "@stripe/firestore-stripe-payments"
+import { getProducts,Product } from "@stripe/firestore-stripe-payments";
 import payments from "../lib/stripe";
 
 interface IProps {
@@ -23,6 +23,7 @@ interface IProps {
   horrorMovies: PugaMovie[];
   romanceMovies: PugaMovie[];
   documentaries: PugaMovie[];
+  products: Product[]
 }
 
 const Home = ({
@@ -34,13 +35,14 @@ const Home = ({
   horrorMovies,
   romanceMovies,
   documentaries,
+  products
 }: IProps): JSX.Element | null => {
   const { logout, loading } = useAuth();
   const showModal = useRecoilValue(modalState);
   const subscription: boolean = false;
 
   if (loading || subscription) return null;
-  if (!subscription) return <Plans/>
+  if (!subscription) return <Plans />;
 
   return (
     <div className=" relative h-screen bg-gradient-to-b">
@@ -72,10 +74,11 @@ export default Home;
 
 export const getServerSideProps = async () => {
   const products = await getProducts(payments, {
-    includePrices:true,
-    activeOnly:true
+    includePrices: true,
+    activeOnly: true,
   })
-
+    .then((res) => res)
+    .catch((e) => console.log(e.message));
 
   const [
     netflixOriginal,
@@ -107,6 +110,8 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
+      products
+
     },
   };
 };
