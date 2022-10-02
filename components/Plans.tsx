@@ -4,8 +4,13 @@ import Link from "next/link";
 import useAuth from "../hooks/useAuth";
 import NetflixIcon from "./svg/NetflixIcon";
 import Table from "./Table";
+import { Product } from "@stripe/firestore-stripe-payments";
 
-export default function Plans(): JSX.Element {
+interface IProps {
+  products: Product[];
+}
+
+export default function Plans({ products }: IProps): JSX.Element {
   const { logout } = useAuth();
 
   return (
@@ -41,11 +46,11 @@ export default function Plans(): JSX.Element {
         </ul>
         <div className=" mt-4 flex flex-col space-y-4">
           <div className=" flex w-full items-center self-end lg:w-3/5">
-            <div className="planBox">standart</div>
-            <div className="planBox">standart</div>
-            <div className="planBox">standart</div>
+            {products.map((item) => {
+              return <div className="planBox" key={item.id}>{item.name}</div>;
+            })}
           </div>
-          <Table/>
+          <Table />
           <button>Subscribe</button>
         </div>
       </main>
