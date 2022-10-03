@@ -50,7 +50,7 @@ export default function Plans({ products }: IProps): JSX.Element {
               return <div className="planBox" key={item.id}>{item.name}</div>;
             })}
           </div>
-          <Table />
+          <Table products={products}/>
           <button>Subscribe</button>
         </div>
       </main>
