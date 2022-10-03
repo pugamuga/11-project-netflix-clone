@@ -6,15 +6,24 @@ import NetflixIcon from "./svg/NetflixIcon";
 import Table from "./Table";
 import { Product } from "@stripe/firestore-stripe-payments";
 import { useState } from "react";
+import Loader from "./Loader";
+import { loadCheckout } from "../lib/stripe";
 
 interface IProps {
   products: Product[];
 }
 
 export default function Plans({ products }: IProps): JSX.Element {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<Product>(products[2]);
   const [isBillingLoading, setSsBillingLoading] = useState<boolean>(false);
+
+  const subscribeToPlan = () => {
+    if (!user) return;
+
+    loadCheckout(selectedPlan.prices[0].id);
+    setSsBillingLoading(true);
+  };
 
   return (
     <div>
@@ -69,10 +78,14 @@ export default function Plans({ products }: IProps): JSX.Element {
           <button
             disabled={!selectedPlan || isBillingLoading}
             onClick={subscribeToPlan}
-            className={`mx-auto w-11/12 rounded bg-[#e50914] py-4 text-xl shadow hover:bg-[#f6121d] md-w-[420px]
+            className={`mx-auto md:w-1/2 w-11/12 rounded bg-[#e50914] py-4 text-xl shadow hover:bg-[#f6121d] md-w-[420px] tr
           ${isBillingLoading && "opacity-60"}`}
           >
-            {isBillingLoading ? <Loader color="dark:fill-gray-300"/> : "Subscribe"}
+            {isBillingLoading ? (
+              <Loader color="dark:fill-gray-300" />
+            ) : (
+              "Subscribe"
+            )}
           </button>
         </div>
       </main>
