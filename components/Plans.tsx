@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import NetflixIcon from "./svg/NetflixIcon";
 import Table from "./Table";
 import { Product } from "@stripe/firestore-stripe-payments";
+import { useState } from "react";
 
 interface IProps {
   products: Product[];
@@ -12,6 +13,8 @@ interface IProps {
 
 export default function Plans({ products }: IProps): JSX.Element {
   const { logout } = useAuth();
+  const [selectedPlan, setSelectedPlan] = useState<Product>(products[2]);
+  const [isBillingLoading, setSsBillingLoading] = useState<boolean>(false);
 
   return (
     <div>
@@ -28,8 +31,8 @@ export default function Plans({ products }: IProps): JSX.Element {
           Sign Out
         </button>
       </header>
-      <main className=" mt-28 max-w-5xl pt-28 pb-12 tr md:px-10">
-        <h1 className="mb-3 text-3xl">Choose the plan that's right for you</h1>
+      <main className="  max-w-5xl pt-28 pb-12 tr md:px-10 px-4 mx-auto">
+        <h1 className="mb-3 text-3xl ">Choose the plan that's right for you</h1>
         <ul>
           <PlansList
             text={`Watch all you want.
@@ -45,13 +48,32 @@ export default function Plans({ products }: IProps): JSX.Element {
           />
         </ul>
         <div className=" mt-4 flex flex-col space-y-4">
-          <div className=" flex w-full items-center self-end lg:w-3/5">
+          <div className=" flex w-full items-center self-end md:w-3/5">
             {products.map((item) => {
-              return <div className="planBox" key={item.id}>{item.name}</div>;
+              return (
+                <div
+                  onClick={() => {
+                    setSelectedPlan(item);
+                  }}
+                  className={`planBox ${
+                    selectedPlan?.id === item.id ? "opacity-100" : "opacity-50"
+                  }`}
+                  key={item.id}
+                >
+                  {item.name}
+                </div>
+              );
             })}
           </div>
-          <Table products={products}/>
-          <button>Subscribe</button>
+          <Table products={products} selectedPlan={selectedPlan} />
+          <button
+            disabled={!selectedPlan || isBillingLoading}
+            onClick={subscribeToPlan}
+            className={`mx-auto w-11/12 rounded bg-[#e50914] py-4 text-xl shadow hover:bg-[#f6121d] md-w-[420px]
+          ${isBillingLoading && "opacity-60"}`}
+          >
+            {isBillingLoading ? <Loader color="dark:fill-gray-300"/> : "Subscribe"}
+          </button>
         </div>
       </main>
     </div>
