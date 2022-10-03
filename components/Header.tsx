@@ -41,14 +41,13 @@ export default function Header(): JSX.Element {
           Kids
         </p>
         <BellIcon className="w-6 h-6 cursor-pointer fill-[#e5e5e5] hover:fill-[#b3b3b3] tr " />
-        {/* <Link href="/account" className="!cursor-pointer"> */}
+        <Link href="/account" className="!cursor-pointer">
         <img
-          onClick={logout}
           src="https://rb.gy/g1pwyx"
           alt=""
           className=" !cursor-pointer rounded hover:opacity-90 tr"
         />
-        {/* </Link> */}
+        </Link>
       </div>
     </header>
   );
