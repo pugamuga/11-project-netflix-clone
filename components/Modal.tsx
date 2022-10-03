@@ -13,6 +13,8 @@ import { useRecoilState } from "recoil";
 import { modalState, movieState } from "../atoms/modalAtom";
 import { Genre, Movie, PugaMovie } from "../typing";
 import { ElementTyping } from "../typing";
+import Image from "next/image";
+import { baseUrl } from "../constants/movie";
 
 export default function Modal(): JSX.Element {
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -40,6 +42,7 @@ export default function Modal(): JSX.Element {
         );
         setTrailer(data?.videos.results[index]?.key);
       }
+
       if (data?.genres) {
         setGenres(data.genres);
       }
@@ -47,6 +50,7 @@ export default function Modal(): JSX.Element {
 
     fetchMovie();
   }, [movie]);
+  console.log(movie)
 
   const handleClose = () => {
     setShowModal(false);
@@ -66,54 +70,73 @@ export default function Modal(): JSX.Element {
           <XIcon className="w-6 h-6 stroke-[2px] tr hover:stroke-[3px]" />
         </button>
         <div className=" relative pt-[56.25%]">
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${trailer}`}
-            width="100%"
-            height="100%"
-            style={{ position: "absolute", top: "0", left: "0" }}
-            playing
-            muted={muted}
-          />
-          <div className=" absolute bottom-10 flex w-full items-center justify-between px-10">
-            <div className="flex space-x-4">
-              <button className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]">
-                <FaPlay className=" w-6 h-6 text-black" />
-                Play
-              </button>
-              <button className=" modalBtn">
-                <PlusIcon className="w-6 h-6" />
-              </button>
-              <button className=" modalBtn">
-                <ThumbUpIcon className="w-6 h-6" />
+          {trailer && (
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${trailer}`}
+              width="100%"
+              height="100%"
+              style={{ position: "absolute", top: "0", left: "0" }}
+              playing
+              muted={muted}
+            />
+          )}
+          {!trailer && (
+            <div className=" absolute top-0 left-0 h-full w-full">
+              <Image
+                src={`${baseUrl}${movie?.poster_path}`}
+                layout="fill"
+                className=" object-cover lg:object-center "
+                loading="lazy"
+              />
+            </div>
+          )}
+          {trailer && (
+            <div className=" absolute bottom-10 flex w-full items-center justify-between px-10">
+              <div className="flex space-x-4">
+                <button className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]">
+                  <FaPlay className=" w-6 h-6 text-black" />
+                  Play
+                </button>
+                <button className=" modalBtn">
+                  <PlusIcon className="w-6 h-6" />
+                </button>
+                <button className=" modalBtn">
+                  <ThumbUpIcon className="w-6 h-6" />
+                </button>
+              </div>
+              <button
+                className="modalBtn"
+                onClick={() => {
+                  setMuted((prev) => !prev);
+                }}
+              >
+                {muted ? (
+                  <VolumeOffIcon className="w-6 h-6" />
+                ) : (
+                  <VolumeUpIcon className="w-6 h-6" />
+                )}
               </button>
             </div>
-            <button
-              className="modalBtn"
-              onClick={() => {
-                setMuted((prev) => !prev);
-              }}
-            >
-              {muted ? (
-                <VolumeOffIcon className="w-6 h-6" />
-              ) : (
-                <VolumeUpIcon className="w-6 h-6" />
-              )}
-            </button>
-          </div>
+          )}
         </div>
         <div className=" flex space-x-16 rounded-b-md bg-[#181818] px-10 py-8">
           <div className=" space-y-6 text-md lg:text-lg">
             <div className=" flex items-center space-x-2">
               <p className=" text-green-400">
-                {(movie!.vote_average * 10).toFixed(2)}% Match 
+                {(movie!.vote_average * 10).toFixed(2)}% Match
               </p>
               <p>{movie?.release_date}</p>
               <div className=" flex h-5 items-center justify-center rounded border border-white/40 px-2 -mt-1">
                 <p className=" pt-1">HD</p>
               </div>
             </div>
-            <div className="flex flex-col gap-x-10 md:flex-row">
-              <p className=" w-5/6">{movie?.overview}</p>
+            <div className="flex flex-col gap-x-10 md:flex-row ">
+              <div className=" w-5/6  md:min-w-[620px]">
+                {!trailer&&(
+                  <h1 className=" text-3xl">{movie?.title || movie?.name }</h1>
+                )}
+                <p>{movie?.overview}</p>
+              </div>
               <div className=" flex flex-col space-y-3 mt-4 md:mt-0">
                 <div className=" text-white flex gap-x-2 md:flex-col">
                   <span className=" text-[#424242]">Genres: </span>

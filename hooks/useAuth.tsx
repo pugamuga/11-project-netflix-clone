@@ -42,8 +42,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(null);
-  const [initialLoading, setInitialLoading] = useState<boolean>(false);
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const router = useRouter();
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user)=>{
@@ -55,7 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             setLoading(true)
             router.push("/login")
         }
-        setInitialLoading(true)
+        setInitialLoading(false)
   })
   }, [auth]);
 
@@ -115,7 +116,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     [user, loading,error]
   );
 
-  return <AuthContext.Provider value={memoValue}>{initialLoading&& children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={memoValue}>{!initialLoading&& children}</AuthContext.Provider>;
 };
 
 export default function useAuth(){

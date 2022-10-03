@@ -29,7 +29,7 @@ export default function Banner({ netflixOriginal }: IProps): JSX.Element {
           src={`${baseUrl}${movie?.poster_path}`}
           layout="fill"
           className=" object-cover lg:object-center "
-          loading="lazy"
+          priority
         />
       </div>
       <h1 className=" text-2xl lg:text-7xl md:text-4xl">{movie?.title}</h1>
