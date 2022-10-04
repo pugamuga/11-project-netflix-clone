@@ -4,6 +4,7 @@ import { SearchIcon, BellIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import MobileMenu from "./MobileMenu";
 
 export default function Header(): JSX.Element {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -27,6 +28,7 @@ export default function Header(): JSX.Element {
     <header className={`${isScrolled && "bg-[#141414]"}`}>
       <div className=" flex items-center space-x-2 md:space-x-10 lg:origin-top-left lg:scale-150 tr ">
         <NetflixIcon />
+        <MobileMenu/>
         <ul className=" space-x-4 hidden md:flex">
           <li className="headerLink">Home</li>
           <li className="headerLink">TV Shows</li>
