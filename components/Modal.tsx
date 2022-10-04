@@ -1,4 +1,5 @@
 import {
+  CheckIcon,
   PlusIcon,
   ThumbUpIcon,
   VolumeOffIcon,
@@ -15,6 +16,9 @@ import { Genre, Movie, PugaMovie } from "../typing";
 import { ElementTyping } from "../typing";
 import Image from "next/image";
 import { baseUrl } from "../constants/movie";
+import useAuth from "../hooks/useAuth";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Modal(): JSX.Element {
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -22,6 +26,8 @@ export default function Modal(): JSX.Element {
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(false);
+  const [addToList, setAddToList] = useState<boolean>(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     if (!movie) return;
@@ -50,7 +56,13 @@ export default function Modal(): JSX.Element {
 
     fetchMovie();
   }, [movie]);
-  console.log(movie)
+  console.log(movie);
+
+  const handleList = async() => {
+    if(addToList){
+      await deleteDoc(doc(db, "customers", user!.uid, "myList", movie?.id.toString()!))
+    }
+  };
 
   const handleClose = () => {
     setShowModal(false);
@@ -97,8 +109,12 @@ export default function Modal(): JSX.Element {
                   <FaPlay className=" w-6 h-6 text-black" />
                   Play
                 </button>
-                <button className=" modalBtn">
-                  <PlusIcon className="w-6 h-6" />
+                <button className=" modalBtn" onClick={handleList}>
+                  {addToList ? (
+                    <CheckIcon className="w-6 h-6" />
+                  ) : (
+                    <PlusIcon className="w-6 h-6" />
+                  )}
                 </button>
                 <button className=" modalBtn">
                   <ThumbUpIcon className="w-6 h-6" />
@@ -132,8 +148,8 @@ export default function Modal(): JSX.Element {
             </div>
             <div className="flex flex-col gap-x-10 md:flex-row ">
               <div className=" w-5/6  md:min-w-[620px]">
-                {!trailer&&(
-                  <h1 className=" text-3xl">{movie?.title || movie?.name }</h1>
+                {!trailer && (
+                  <h1 className=" text-3xl">{movie?.title || movie?.name}</h1>
                 )}
                 <p>{movie?.overview}</p>
               </div>
