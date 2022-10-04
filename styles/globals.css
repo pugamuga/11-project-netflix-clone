@@ -55,6 +55,18 @@
   .membershipLink{
     @apply tr cursor-pointer text-blue-500 hover:underline
   }
+  .menu{
+    @apply md:hidden
+  }
+  .menu .MuiPaper-root{
+    @apply !absolute !left-0 !rounded-none !border !border-[#555] !bg-[#111] text-white
+  }
+  .menu .MuiList-root{
+    @apply !p-0
+  }
+  .menu .MuiMenuItem-root{
+    @apply !block w-72 py-4 text-center text-sm text-[#b3b3b3] tr first:cursor-default first:text-white  hover:bg-[#11100f]
+  }
 }
 
 /* *{
