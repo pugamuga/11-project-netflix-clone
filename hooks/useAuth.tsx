@@ -15,6 +15,8 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { useRecoilState } from "recoil";
+import { signUpAtom } from "../atoms/modalAtom";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -44,6 +46,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [error, setError] = useState(null);
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const router = useRouter();
+  const [signUpComponent, setSignUpComponent] = useRecoilState(signUpAtom)
+
 
 
   useEffect(() => {
@@ -92,7 +96,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = async () => {
     setLoading(true);
-
+    setSignUpComponent(false)
     signOut(auth)
       .then(() => {
         setUser(null);
