@@ -5,8 +5,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import MobileMenu from "./MobileMenu";
+import { PugaMovie } from "../typing";
+import { DocumentData } from "firebase/firestore";
 
-export default function Header(): JSX.Element {
+interface IProps{
+  list:PugaMovie[]|DocumentData[]
+}
+
+export default function Header({list}:IProps): JSX.Element {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const { logout } = useAuth();
 
@@ -28,13 +34,13 @@ export default function Header(): JSX.Element {
     <header className={`${isScrolled && "bg-[#141414]"}`}>
       <div className=" flex items-center space-x-2 md:space-x-10 lg:origin-top-left lg:scale-150 tr ">
         <NetflixIcon />
-        <MobileMenu/>
+        <MobileMenu list={list}/>
         <ul className=" space-x-4 hidden md:flex">
           <li className="headerLink">Home</li>
           <li className="headerLink">TV Shows</li>
           <li className="headerLink">Movies</li>
           <li className="headerLink">New & Popular</li>
-          <li className="headerLink">My List</li>
+          {list.length>0&&<li className="headerLink">My List</li>}
         </ul>
       </div>
       <div className=" flex items-center space-x-4 text-sm cursor-pointer">

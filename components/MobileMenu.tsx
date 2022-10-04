@@ -2,8 +2,15 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { PugaMovie } from "../typing";
+import { DocumentData } from "firebase/firestore";
 
-export default function MobileMenu() {
+
+interface IProps{
+    list:PugaMovie[]|DocumentData[]
+  }
+
+export default function MobileMenu({list}:IProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,7 +46,7 @@ export default function MobileMenu() {
         <MenuItem className="!font-netflix" onClick={handleClose}>Tv shows</MenuItem>
         <MenuItem className="!font-netflix" onClick={handleClose}>Movies</MenuItem>
         <MenuItem className="!font-netflix" onClick={handleClose}>New & popular</MenuItem>
-        <MenuItem className="!font-netflix" onClick={handleClose}>My list</MenuItem>
+        {list.length>0&&<MenuItem className="!font-netflix" onClick={handleClose}>My list</MenuItem>}
       </Menu>
     </div>
   );
