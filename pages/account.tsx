@@ -48,7 +48,7 @@ export default function account({ products }: any): JSX.Element {
         <Membership />
         <div className="accRow">
           <h1>Plan Details</h1>
-          <div>
+          <div className=" col-span-2"> 
             {
               products.filter(
                 (pr: Product) => pr.id === subscription?.product

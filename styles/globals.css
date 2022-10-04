@@ -50,7 +50,10 @@
     @apply w-full p-3 text-center text-sm text-white md:w-2/5 md:p-4 md:text-left 
   }
   .accRow{
-    @apply mt-6 grid grid-cols-1 gap-x-4 border  px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0
+    @apply mt-6 grid grid-cols-1 gap-x-4 border  px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0 
+  }
+  .membershipLink{
+    @apply tr cursor-pointer text-blue-500 hover:underline
   }
 }
 
