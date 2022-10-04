@@ -6,6 +6,7 @@ import {
   VolumeUpIcon,
   XIcon,
 } from "@heroicons/react/outline";
+import { ThumbUpIcon as LikeSolidIcon } from "@heroicons/react/solid";
 import MuiModal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
@@ -35,11 +36,13 @@ export default function Modal(): JSX.Element {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(false);
   const [addToList, setAddToList] = useState<boolean>(false);
+  const [addToLike, setAddToLike] = useState<boolean>(false);
   const { user } = useAuth();
   const [someMovies, setSomeMovies] = useState<DocumentData[] | PugaMovie[]>(
     []
   );
   const [isVideoPlayed, setVideoPlayed] = useRecoilState(videoPlaying);
+  const [liked, setLiked] = useState<DocumentData[] | PugaMovie[]>([]);
 
   const toastStyle = {
     background: "white",
@@ -80,6 +83,27 @@ export default function Modal(): JSX.Element {
   }, [movie]);
   console.log(movie);
 
+  const handleLike = async () => {
+    if (addToLike) {
+      await deleteDoc(
+        doc(db, "customers", user!.uid, "like", movie?.id.toString()!)
+      );
+      toast(`${movie?.name || movie?.original_title} 💔`, {
+        duration: 2000,
+        style: toastStyle,
+      });
+    } else {
+      await setDoc(
+        doc(db, "customers", user!.uid, "like", movie?.id.toString()!),
+        { ...movie }
+      );
+      toast(`${movie?.name || movie?.original_title} 💖`, {
+        duration: 2000,
+        style: toastStyle,
+      });
+    }
+  };
+
   const handleList = async () => {
     if (addToList) {
       await deleteDoc(
@@ -88,7 +112,7 @@ export default function Modal(): JSX.Element {
       toast(
         `${movie?.name || movie?.original_title} has been removed from My list`,
         {
-          duration: 8000,
+          duration: 2000,
           style: toastStyle,
         }
       );
@@ -100,7 +124,7 @@ export default function Modal(): JSX.Element {
       toast(
         `${movie?.name || movie?.original_title} has been added to My list`,
         {
-          duration: 8000,
+          duration: 2000,
           style: toastStyle,
         }
       );
@@ -117,10 +141,20 @@ export default function Modal(): JSX.Element {
   }, [db, movie?.id]);
 
   useEffect(() => {
+    if (user) {
+      return onSnapshot(
+        collection(db, "customers", user?.uid, "like"),
+        (snap) => setLiked(snap.docs)
+      );
+    }
+  }, [db, movie?.id]);
+
+  useEffect(() => {
     setAddToList(
       someMovies.findIndex((res) => res.data().id === movie?.id) !== -1
     );
-  }, [someMovies]);
+    setAddToLike(liked.findIndex((res) => res.data().id === movie?.id) !== -1);
+  }, [someMovies, liked]);
 
   const handleClose = () => {
     setShowModal(false);
@@ -164,24 +198,27 @@ export default function Modal(): JSX.Element {
           {trailer && (
             <div className=" absolute bottom-10 flex w-full items-center justify-between px-10">
               <div className="flex space-x-4">
-                {!isVideoPlayed?<button
-                  onClick={() => {
-                    setVideoPlayed(true);
-                  }}
-                  className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]"
-                >
-                  <FaPlay className=" w-6 h-6 text-black" />
-                  Play
-                </button>:
-                <button
-                  onClick={() => {
-                    setVideoPlayed(false);
-                  }}
-                  className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]"
-                >
-                  <FaPause className=" w-6 h-6 text-black" />
-                  Pause
-                </button>}
+                {!isVideoPlayed ? (
+                  <button
+                    onClick={() => {
+                      setVideoPlayed(true);
+                    }}
+                    className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]"
+                  >
+                    <FaPlay className=" w-6 h-6 text-black" />
+                    Play
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setVideoPlayed(false);
+                    }}
+                    className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]"
+                  >
+                    <FaPause className=" w-6 h-6 text-black" />
+                    Pause
+                  </button>
+                )}
                 <button className=" modalBtn" onClick={handleList}>
                   {addToList ? (
                     <CheckIcon className="w-6 h-6" />
@@ -189,8 +226,12 @@ export default function Modal(): JSX.Element {
                     <PlusIcon className="w-6 h-6" />
                   )}
                 </button>
-                <button className=" modalBtn">
-                  <ThumbUpIcon className="w-6 h-6" />
+                <button className=" modalBtn" onClick={handleLike}>
+                  {!addToLike ? (
+                    <ThumbUpIcon className="w-6 h-6" />
+                  ) : (
+                    <LikeSolidIcon className="w-6 h-6" />
+                  )}
                 </button>
               </div>
               <button

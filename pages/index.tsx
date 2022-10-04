@@ -40,13 +40,13 @@ const Home = ({
   documentaries,
   products,
 }: IProps): JSX.Element | null => {
-  const {  loading, user } = useAuth();
+  const { loading, user } = useAuth();
   const showModal = useRecoilValue(modalState);
   const subscription = useSubscription(user);
-  const movie = useRecoilValue(movieState)
-  const list = useList(user?.uid)
+  const movie = useRecoilValue(movieState);
+  const list = useList(user?.uid);
 
-  if (loading||subscription===null) return null;
+  if (loading || subscription === null) return null;
   if (!subscription) return <Plans products={products} />;
 
   return (
@@ -56,15 +56,21 @@ const Home = ({
 
         <link rel="icon" href="..//favicon.ico" />
       </Head>
-      <Header list={list}/>
-      <main className=" relative pl-4 pb-24 space-y-12 pt-12 lg:pt-0 md:space-y-24 lg:pl-16 tr">
+      <Header list={list} />
+      <main id="home" className=" relative pl-4 pb-24 space-y-12 pt-12 lg:pt-0 md:space-y-24 lg:pl-16 tr">
         <Banner netflixOriginal={netflixOriginal} />
         <section className=" md:space-y-24">
-          <Row title="Trending Now" movies={tranding} />
+          <div id="all">
+            <Row title="Trending Now" movies={tranding} />
+          </div>
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
           {/*my list*/}
-          {list.length>0&&<Row title="My list" movies={list}/>}
+          {list.length > 0 && (
+            <div id="myList">
+              <Row title="My list" movies={list} />
+            </div>
+          )}
           {/*my list*/}
           <Row title="Comedies" movies={comedyMovies} />
           <Row title="Horrors" movies={horrorMovies} />
