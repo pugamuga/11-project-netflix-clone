@@ -2,9 +2,10 @@ import { PugaMovie } from "../typing"
 import Image from "next/image"
 import { useRecoilState } from "recoil"
 import { modalState, movieState } from "../atoms/modalAtom"
+import { DocumentData } from "firebase/firestore"
 
 interface IProps{
-    item:PugaMovie
+    item:PugaMovie|DocumentData
 }
 
 export default function Thumbnail({item}:IProps) {

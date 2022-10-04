@@ -8,13 +8,14 @@ import { PugaMovie, Genre } from "../typing";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
 import { useRecoilValue } from "recoil";
-import { modalState } from "../atoms/modalAtom";
+import { modalState, movieState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
 import Plans from "../components/Plans";
 import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import payments from "../lib/stripe";
 import useSubscription from "../hooks/useSubscription";
 import { Subscription } from "@stripe/firestore-stripe-payments";
+import useList from "../hooks/useList";
 
 interface IProps {
   netflixOriginal: PugaMovie[];
@@ -42,6 +43,8 @@ const Home = ({
   const {  loading, user } = useAuth();
   const showModal = useRecoilValue(modalState);
   const subscription = useSubscription(user);
+  const movie = useRecoilValue(movieState)
+  const list = useList(user?.uid)
 
   if (loading||subscription===null) return null;
   if (!subscription) return <Plans products={products} />;
@@ -60,6 +63,8 @@ const Home = ({
           <Row title="Trending Now" movies={tranding} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
+          {/*my list*/}
+          {list.length>0&&<Row title="My list" movies={list}/>}
           {/*my list*/}
           <Row title="Comedies" movies={comedyMovies} />
           <Row title="Horrors" movies={horrorMovies} />

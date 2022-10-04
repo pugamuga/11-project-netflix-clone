@@ -17,8 +17,16 @@ import { ElementTyping } from "../typing";
 import Image from "next/image";
 import { baseUrl } from "../constants/movie";
 import useAuth from "../hooks/useAuth";
-import { deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  DocumentData,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Modal(): JSX.Element {
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -28,6 +36,19 @@ export default function Modal(): JSX.Element {
   const [muted, setMuted] = useState(false);
   const [addToList, setAddToList] = useState<boolean>(false);
   const { user } = useAuth();
+  const [someMovies, setSomeMovies] = useState<DocumentData[] | PugaMovie[]>(
+    []
+  );
+
+  const toastStyle = {
+    background:"white",
+    color:"black",
+    fontSize: "16px",
+    paddingBottom: "15px",
+    paddingTop: "17px",
+    borderRadius: "9999px",
+    maxWidth: "1000px"
+  };
 
   useEffect(() => {
     if (!movie) return;
@@ -58,11 +79,47 @@ export default function Modal(): JSX.Element {
   }, [movie]);
   console.log(movie);
 
-  const handleList = async() => {
-    if(addToList){
-      await deleteDoc(doc(db, "customers", user!.uid, "myList", movie?.id.toString()!))
+  const handleList = async () => {
+    if (addToList) {
+      await deleteDoc(
+        doc(db, "customers", user!.uid, "myList", movie?.id.toString()!)
+      );
+      toast(
+        `${movie?.name || movie?.original_title} has been removed from My list`,
+        {
+          duration: 8000,
+          style: toastStyle,
+        }
+      );
+    } else {
+      await setDoc(
+        doc(db, "customers", user!.uid, "myList", movie?.id.toString()!),
+        { ...movie }
+      );
+      toast(
+        `${movie?.name || movie?.original_title} has been added to My list`,
+        {
+          duration: 8000,
+          style: toastStyle,
+        }
+      );
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      return onSnapshot(
+        collection(db, "customers", user?.uid, "myList"),
+        (snap) => setSomeMovies(snap.docs)
+      );
+    }
+  }, [db, movie?.id]);
+
+  useEffect(() => {
+    setAddToList(
+      someMovies.findIndex((res) => res.data().id === movie?.id) !== -1
+    );
+  }, [someMovies]);
 
   const handleClose = () => {
     setShowModal(false);
@@ -75,6 +132,7 @@ export default function Modal(): JSX.Element {
     scrollbar-hide"
     >
       <>
+        <Toaster position="bottom-center" />
         <button
           onClick={handleClose}
           className="modalBtn absolute right-5 top-5 !z-40"

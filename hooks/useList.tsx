@@ -1,12 +1,12 @@
 import { collection, DocumentData, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
-import { Movie } from "../typing";
+import { Movie, PugaMovie } from "../typing";
 
 export default function useList(
   uid: string | undefined
-): Movie[] | DocumentData {
-  const [list, setList] = useState<Movie[] | DocumentData>([]);
+): PugaMovie[] | DocumentData[] {
+  const [list, setList] = useState<PugaMovie[] | DocumentData[]>([]);
 
   useEffect(() => {
     if (!uid) {
