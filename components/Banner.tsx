@@ -4,7 +4,7 @@ import { baseUrl } from "../constants/movie";
 import { PugaMovie } from "../typing";
 import { FaPlay } from "react-icons/fa";
 import { InformationCircleIcon } from "@heroicons/react/outline";
-import { modalState, movieState } from "../atoms/modalAtom";
+import { modalState, movieState, videoPlaying } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 
 interface IProps {
@@ -14,6 +14,8 @@ interface IProps {
 export default function Banner({ netflixOriginal }: IProps): JSX.Element {
   const [showModal, setShowModal] = useRecoilState(modalState);
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
+  const [isVideoPlayed, setVideoPlayed] = useRecoilState(videoPlaying);
+
 
   const [movie, setMovie] = useState<PugaMovie | null>(null);
   useEffect(() => {
@@ -37,7 +39,12 @@ export default function Banner({ netflixOriginal }: IProps): JSX.Element {
         {movie?.overview}
       </p>
       <div className="flex space-x-3">
-        <button className="bannerBtn cursor-pointer">
+        <button className="bannerBtn cursor-pointer"
+        onClick={() => {
+          setCurrentMovie(movie);
+          setShowModal(true);
+          setVideoPlayed(true)
+        }}>
           <FaPlay className="mb-[2px] h-4 w-4 text-black md:h-7 md:w-7 " /> Play
         </button>
         <button
@@ -45,6 +52,7 @@ export default function Banner({ netflixOriginal }: IProps): JSX.Element {
           onClick={() => {
             setCurrentMovie(movie);
             setShowModal(true);
+            setVideoPlayed(false)
           }}
         >
           More Info

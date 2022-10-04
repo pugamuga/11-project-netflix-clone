@@ -8,10 +8,10 @@ import {
 } from "@heroicons/react/outline";
 import MuiModal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa";
+import { FaPause, FaPlay } from "react-icons/fa";
 import ReactPlayer from "react-player/lazy";
 import { useRecoilState } from "recoil";
-import { modalState, movieState } from "../atoms/modalAtom";
+import { modalState, movieState, videoPlaying } from "../atoms/modalAtom";
 import { Genre, Movie, PugaMovie } from "../typing";
 import { ElementTyping } from "../typing";
 import Image from "next/image";
@@ -39,15 +39,16 @@ export default function Modal(): JSX.Element {
   const [someMovies, setSomeMovies] = useState<DocumentData[] | PugaMovie[]>(
     []
   );
+  const [isVideoPlayed, setVideoPlayed] = useRecoilState(videoPlaying);
 
   const toastStyle = {
-    background:"white",
-    color:"black",
+    background: "white",
+    color: "black",
     fontSize: "16px",
     paddingBottom: "15px",
     paddingTop: "17px",
     borderRadius: "9999px",
-    maxWidth: "1000px"
+    maxWidth: "1000px",
   };
 
   useEffect(() => {
@@ -146,7 +147,7 @@ export default function Modal(): JSX.Element {
               width="100%"
               height="100%"
               style={{ position: "absolute", top: "0", left: "0" }}
-              playing
+              playing={isVideoPlayed}
               muted={muted}
             />
           )}
@@ -163,10 +164,24 @@ export default function Modal(): JSX.Element {
           {trailer && (
             <div className=" absolute bottom-10 flex w-full items-center justify-between px-10">
               <div className="flex space-x-4">
-                <button className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]">
+                {!isVideoPlayed?<button
+                  onClick={() => {
+                    setVideoPlayed(true);
+                  }}
+                  className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]"
+                >
                   <FaPlay className=" w-6 h-6 text-black" />
                   Play
-                </button>
+                </button>:
+                <button
+                  onClick={() => {
+                    setVideoPlayed(false);
+                  }}
+                  className=" flex items-center gap-x-2 rounded bg-white text-black px-8 pb-[10px] pt-3 tr hover:bg-[#e6e6e6]"
+                >
+                  <FaPause className=" w-6 h-6 text-black" />
+                  Pause
+                </button>}
                 <button className=" modalBtn" onClick={handleList}>
                   {addToList ? (
                     <CheckIcon className="w-6 h-6" />

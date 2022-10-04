@@ -11,4 +11,9 @@ export const modalState = atom({
 export const movieState = atom<PugaMovie|DocumentData|null>({
     key: "movieState",
     default: null
+}
+)
+export const videoPlaying = atom<boolean>({
+    key: "videoPlaying",
+    default: false
 })
